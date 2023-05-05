@@ -3,8 +3,13 @@ import RootPage from "./root-page";
 import AboutPage from "./about-page";
 import ProtectedPage from "./protected-page";
 import Error404Page from "./error404-page";
+import ProtectRoute from "./components/ProtectRoute";
+import { useState } from "react";
+import { UserContext } from "./hooks/useUser";
 
 function App() {
+  const [user, setUser] = useState<string | undefined>(undefined);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -16,7 +21,11 @@ function App() {
     },
     {
       path: "/protected",
-      element: <ProtectedPage />,
+      element: (
+        <ProtectRoute>
+          <ProtectedPage />
+        </ProtectRoute>
+      ),
     },
     {
       path: "*",
@@ -28,7 +37,9 @@ function App() {
     <div className="container mx-auto max-w-xl">
       <h1 className="text-2xl font-bold text-center">Auth Frontend Example</h1>
 
-      <RouterProvider router={router} />
+      <UserContext.Provider value={{ user, setUser }}>
+        <RouterProvider router={router} />
+      </UserContext.Provider>
     </div>
   );
 }
