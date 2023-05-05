@@ -4,6 +4,7 @@ import AboutPage from "./about-page";
 import ProtectedPage from "./protected-page";
 import Error404Page from "./error404-page";
 import ProtectRoute from "./components/ProtectRoute";
+import Session from "./components/session";
 import { useState } from "react";
 import { UserContext } from "./hooks/useUser";
 
@@ -39,6 +40,7 @@ function App() {
 
       <UserContext.Provider value={{ user, setUser }}>
         <RouterProvider router={router} />
+        <Session />
       </UserContext.Provider>
     </div>
   );
